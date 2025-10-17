@@ -1,0 +1,14 @@
+#!/bin/sh
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+COMMIT_TAG="$(echo ${BRANCH_NAME} | awk -F '/' '{print $NF}' | cut -d '_' -f 1)"
+
+COMMIT_MESSAGE=$(cat $1)
+
+if [ -n "${COMMIT_TAG}" -a "${COMMIT_MESSAGE#*${COMMIT_TAG}}" = "${COMMIT_MESSAGE}" ]; then
+    COMMIT_TAG="[$COMMIT_TAG]"
+    sed -i.bak -e '1s,^,'"$COMMIT_TAG"' ,' $1
+fi
+
+

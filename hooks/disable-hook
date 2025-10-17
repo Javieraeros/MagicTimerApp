@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+if [ $(git config --type=bool hooks.disabled) ]; then
+    echo "Disabling hooks"
+    exit 1
+fi

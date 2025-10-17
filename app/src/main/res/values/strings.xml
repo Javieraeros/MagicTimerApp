@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MagicTimerApp</string>
+    <string name="add_task">Añade tu tarea</string>
+</resources>
