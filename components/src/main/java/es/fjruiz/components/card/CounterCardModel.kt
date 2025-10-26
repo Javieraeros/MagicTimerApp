@@ -1,0 +1,16 @@
+package es.fjruiz.components.card
+
+import java.util.UUID
+
+data class CounterCardModel(
+    val playerId: String = UUID.randomUUID().toString(),
+    val time: String,
+    val image: String,
+    val hasTurn: Boolean,
+    val hasPriority: Boolean,
+    val stars: StarEnum
+)
+
+enum class StarEnum {
+    NONE, ONE, TWO
+}

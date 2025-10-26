@@ -19,7 +19,9 @@ room = "2.8.1"
 coroutines = "1.10.2"
 mockk = "1.14.5"
 commonKotlin = "0.0.1"
-commonCompose = "0.0.2"
+commonCompose = "0.0.3"
+constraintLayout = "1.1.1"
+coil = "3.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +32,7 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintLayout" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room"}
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room"}
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room"}
@@ -52,6 +55,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 fjruiz-common-Kotlin = { group = "es.fjruiz.android", name ="commonKotlin", version.ref = "commonKotlin" }
 fjruiz-common-compose = { group = "es.fjruiz.android", name ="commonCompose", version.ref = "commonCompose" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 
 
 [plugins]
