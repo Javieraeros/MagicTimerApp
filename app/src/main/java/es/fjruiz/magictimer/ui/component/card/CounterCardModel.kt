@@ -1,4 +1,4 @@
-package es.fjruiz.components.card
+package es.fjruiz.magictimer.ui.component.card
 
 import java.util.UUID
 
