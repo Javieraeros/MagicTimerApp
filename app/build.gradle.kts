@@ -65,6 +65,10 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons)
 
+    // UI - Images
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+
     // Navigation
     implementation(libs.androidx.navigation.compose)
 

@@ -15,8 +15,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import es.fjruiz.commoncompose.utils.LockScreenOrientation
-import es.fjruiz.components.card.CounterCard
-import es.fjruiz.components.card.CounterCardModel
+import es.fjruiz.magictimer.ui.screens.counter.CounterIntent
+import es.fjruiz.magictimer.ui.component.card.CounterCard
+import es.fjruiz.magictimer.ui.component.card.CounterCardModel
 import es.fjruiz.magictimer.ui.util.rotateLayout
 
 private const val firstPlayerId = "firstPlayerId"
@@ -31,6 +32,7 @@ fun FourPlayerView(
     secondCounterModel: CounterCardModel,
     thirdCounterModel: CounterCardModel,
     fourthCounterModel: CounterCardModel,
+    handleIntent: (CounterIntent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -43,6 +45,7 @@ fun FourPlayerView(
 
         CounterCard(
             firstCounterModel,
+            handleIntent,
             modifier = Modifier
                 .rotateLayout()
                 .layoutId(firstPlayerId)
@@ -50,6 +53,7 @@ fun FourPlayerView(
 
         CounterCard(
             secondCounterModel,
+            handleIntent,
             modifier = Modifier
                 .rotateLayout(false)
                 .layoutId(secondPlayerId)
@@ -57,6 +61,7 @@ fun FourPlayerView(
 
         CounterCard(
             thirdCounterModel,
+            handleIntent,
             modifier = Modifier
                 .layoutId(thirdPlayerId)
                 .rotateLayout()
@@ -64,6 +69,7 @@ fun FourPlayerView(
 
         CounterCard(
             fourthCounterModel,
+            handleIntent,
             modifier = Modifier
                 .layoutId(fourthPlayerId)
                 .rotateLayout(false)
@@ -71,7 +77,7 @@ fun FourPlayerView(
 
         Button(
             onClick = {
-                // TODO: Pause
+                handleIntent(CounterIntent.OnPauseClicked)
             },
             Modifier
                 .layoutId(pauseButtonId)
