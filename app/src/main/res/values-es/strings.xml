@@ -3,6 +3,7 @@
     <string name="add_task">Añade tu tarea</string>
     <string name="resume">Continuar</string>
 
+    <string name="resume_body">Presiones continuar para proseguir el juego</string>
     <string name="take_priority">Prioridad</string>
     <string name="take_turn">Turno</string>
 </resources>
