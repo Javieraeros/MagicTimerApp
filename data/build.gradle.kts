@@ -53,6 +53,9 @@ dependencies {
     // Modules
     implementation(project(":domain"))
 
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
