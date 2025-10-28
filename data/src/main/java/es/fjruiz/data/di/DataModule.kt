@@ -6,3 +6,4 @@ val dataModule = module {}
     .plus(databaseModule)
     .plus(dataSourceModule)
     .plus(repositoryModule)
+    .plus(persistenceModule)
