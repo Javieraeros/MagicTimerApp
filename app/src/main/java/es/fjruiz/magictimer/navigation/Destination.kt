@@ -8,7 +8,9 @@ sealed class Destination {
     @Serializable
     object Splash: Destination()
 
+    @Serializable
+    object Counter: Destination()
 
     @Serializable
-    object TaskList: Destination()
+    object Settings: Destination()
 }

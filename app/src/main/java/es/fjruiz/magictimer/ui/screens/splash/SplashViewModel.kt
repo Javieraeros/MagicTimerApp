@@ -13,8 +13,8 @@ class SplashViewModel(private val navigator: Navigator): BaseViewModel<SplashInt
         when (intent) {
             SplashIntent.NavigateNext -> {
                 viewModelScope.launch {
-                    delay(800)
-                    navigator.navigatePopUp(Destination.TaskList)
+                    delay(80)
+                    navigator.navigatePopUp(Destination.Counter)
                 }
             }
         }

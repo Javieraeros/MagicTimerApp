@@ -5,7 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import es.fjruiz.magictimer.navigation.Destination
-import es.fjruiz.magictimer.ui.screens.tasklist.TaskListScreen
+import es.fjruiz.magictimer.ui.screens.counter.CounterScreen
+import es.fjruiz.magictimer.ui.screens.settings.SettingsScreen
 import es.fjruiz.magictimer.ui.screens.splash.SplashScreen
 
 @Composable
@@ -15,8 +16,12 @@ fun MainGraph(navController: NavHostController) {
             SplashScreen()
         }
 
-        composable<Destination.TaskList> {
-            TaskListScreen()
+        composable<Destination.Counter> {
+            CounterScreen()
+        }
+
+        composable<Destination.Settings> {
+            SettingsScreen()
         }
     }
 }
