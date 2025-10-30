@@ -8,6 +8,6 @@ data class Config(
     val playerNumber: PlayerNumber = PlayerNumber.FOUR
 )
 
-enum class PlayerNumber {
-    TWO, THREE, FOUR
+enum class PlayerNumber(val value: Int) {
+    TWO(2), THREE(3), FOUR(4)
 }
