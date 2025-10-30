@@ -25,6 +25,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import coil3.compose.AsyncImage
 import es.fjruiz.magictimer.R
 import es.fjruiz.components.button.PrimaryButton
+import es.fjruiz.magictimer.ui.base.HandleIntent
 import es.fjruiz.magictimer.ui.screens.counter.CounterIntent
 
 const val jace =
@@ -49,7 +50,7 @@ private const val priorityButtonId = "priorityButtonId"
 @Composable
 fun CounterCard(
     counterCardModel: CounterCardModel,
-    handleIntent: (CounterIntent) -> Unit,
+    handleIntent: HandleIntent<CounterIntent>,
     modifier: Modifier = Modifier
 ) {
     val border = if (counterCardModel.hasPriority) {
@@ -150,14 +151,14 @@ private fun getConstraintSet(): ConstraintSet {
 
         constrain(priorityButton){
             start.linkTo(parent.start)
-            end.linkTo(timeText.start)
-            centerVerticallyTo(parent)
+            end.linkTo(turnButton.start)
+            bottom.linkTo(parent.bottom)
         }
 
         constrain(turnButton){
-            start.linkTo(timeText.end)
+            start.linkTo(priorityButton.end)
             end.linkTo(parent.end)
-            centerVerticallyTo(parent)
+            bottom.linkTo(parent.bottom)
         }
 
     }
