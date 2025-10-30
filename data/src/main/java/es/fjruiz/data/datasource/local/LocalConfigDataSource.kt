@@ -18,8 +18,8 @@ class LocalConfigDataSourceImpl(
         private const val PLAYERS_KEY = "players_key"
     }
     override suspend fun getConfig(): ConfigDTO {
-        val time = dataStoreManager.getLongValue(TIME_KEY)
-        val extraTime = dataStoreManager.getLongValue(EXTRA_TIME_KEY)
+        val time = dataStoreManager.getLongValue(TIME_KEY, 180)
+        val extraTime = dataStoreManager.getLongValue(EXTRA_TIME_KEY, 60)
         val players = dataStoreManager.getIntValue(PLAYERS_KEY)
 
         return ConfigDTO(time, extraTime, players)

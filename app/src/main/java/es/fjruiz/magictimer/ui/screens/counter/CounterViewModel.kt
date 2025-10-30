@@ -16,6 +16,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+
+private val list = listOf(
+    CounterCardModel(time = "2:00", image = jace, hasTurn = true, hasPriority = true, stars = StarEnum.TWO),
+    CounterCardModel(time = "2:00", image = vivien, hasTurn = false, hasPriority = false, stars = StarEnum.ONE),
+    CounterCardModel(time = "2:00", image = chandra, hasTurn = false, hasPriority = false, stars = StarEnum.NONE),
+    CounterCardModel(time = "2:00", image = ajani, hasTurn = false, hasPriority = false, stars = StarEnum.TWO)
+)
 class CounterViewModel(private val navigator: Navigator): BaseViewModel<CounterIntent>() {
 
     private var _uiState: MutableStateFlow<CounterUiState> = MutableStateFlow(CounterUiState.Loading)
@@ -26,12 +33,7 @@ class CounterViewModel(private val navigator: Navigator): BaseViewModel<CounterI
             CounterIntent.OnInit -> {
                 _uiState.update {
                     Success(
-                        listOf(
-                            CounterCardModel(time = "2:00", image = jace, hasTurn = true, hasPriority = true, stars = StarEnum.TWO),
-                            CounterCardModel(time = "2:00", image = vivien, hasTurn = false, hasPriority = false, stars = StarEnum.ONE),
-                            // CounterCardModel(time = "2:00", image = chandra, hasTurn = false, hasPriority = false, stars = StarEnum.NONE),
-                            // CounterCardModel(time = "2:00", image = ajani, hasTurn = false, hasPriority = false, stars = StarEnum.TWO)
-                        )
+                        list
                     )
                 }
                 // TODO: Use case to get last game from database if needed
@@ -45,7 +47,7 @@ class CounterViewModel(private val navigator: Navigator): BaseViewModel<CounterI
             }
 
             CounterIntent.OnPauseDismissed -> _uiState.update {
-                it
+                Success(list)
                 // TODO: Use case
             }
 

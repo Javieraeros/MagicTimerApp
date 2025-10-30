@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -29,12 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import es.fjruiz.magictimer.R
+import es.fjruiz.magictimer.ui.base.HandleIntent
+import es.fjruiz.magictimer.ui.component.LoadingView
 import es.fjruiz.magictimer.ui.screens.counter.view.FourPlayerView
 import es.fjruiz.magictimer.ui.screens.counter.view.ThreePlayerView
 import es.fjruiz.magictimer.ui.screens.counter.view.TwoPlayerView
 import org.koin.androidx.compose.koinViewModel
 
-private val bottomBarBackground = "https://i.imgur.com/lP6b13v.jpg"
+private const val bottomBarBackground = "https://i.imgur.com/lP6b13v.jpg"
 
 @Composable
 fun CounterScreen(counterViewModel: CounterViewModel = koinViewModel()) {
@@ -83,31 +87,35 @@ fun CounterScreen(counterViewModel: CounterViewModel = koinViewModel()) {
 }
 
 @Composable
-fun LoadingView(modifier: Modifier = Modifier) {
-    Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircularProgressIndicator(color = Color.Red)
-    }
-}
-
-@Composable
-fun PauseView(handleIntent: (CounterIntent) -> Unit, modifier: Modifier = Modifier) {
+fun PauseView(handleIntent: HandleIntent<CounterIntent>, modifier: Modifier = Modifier) {
     AlertDialog({
         handleIntent(CounterIntent.OnPauseDismissed)
     }, confirmButton = {
-        Text(stringResource(R.string.resume))
+        Text(stringResource(R.string.resume), Modifier.clickable {
+            handleIntent(CounterIntent.OnPauseDismissed)
+        })
     }, title = {
         Text(stringResource(R.string.resume_body))
     }, modifier = modifier)
 }
 
 @Composable
-fun BottomBar(handleIntent: (CounterIntent) -> Unit,modifier: Modifier = Modifier) {
-    Box(modifier = modifier
-        .fillMaxWidth()
-        .height(60.dp), contentAlignment = Alignment.Center) {
-        AsyncImage(bottomBarBackground, contentDescription = "", contentScale = ContentScale.FillWidth)
-        Icon(Icons.Default.Settings, "Settings", Modifier.clip(CircleShape).background(Color.Black).padding(12.dp).clickable {
-            handleIntent(CounterIntent.OnSettingsClicked)
-        })
+fun BottomBar(handleIntent: HandleIntent<CounterIntent>,modifier: Modifier = Modifier) {
+    BottomAppBar {
+        Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            AsyncImage(
+                bottomBarBackground,
+                contentDescription = "",
+                contentScale = ContentScale.FillWidth
+            )
+            Icon(
+                Icons.Default.Settings, "Settings", Modifier
+                    .clip(CircleShape)
+                    .background(Color.Black)
+                    .padding(12.dp)
+                    .clickable {
+                        handleIntent(CounterIntent.OnSettingsClicked)
+                    })
+        }
     }
 }
