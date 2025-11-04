@@ -15,10 +15,14 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,6 +39,7 @@ import es.fjruiz.magictimer.ui.base.HandleIntent
 import es.fjruiz.magictimer.ui.component.LoadingView
 import es.fjruiz.magictimer.ui.vo.ConfigVO
 import es.fjruiz.magictimer.ui.vo.SettingsVO
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -44,9 +49,20 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
     }
 
     val uiState by settingsViewModel.uiState.collectAsStateWithLifecycle()
+    val rememberCoroutineScope = rememberCoroutineScope()
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    (uiState as? SettingsUiState.Success)?.takeIf { it.settingsVO.showSavedCorrectly }?.let {
+        val savedMessage = stringResource(R.string.success_saved)
+        rememberCoroutineScope.launch {
+            snackBarHostState.showSnackbar(savedMessage)
+        }
+    }
 
     Scaffold(topBar = {
         SettingsTopAppBar(settingsViewModel::handleIntent)
+    }, snackbarHost = {
+        SnackbarHost(snackBarHostState)
     }) { paddingValues ->
         when (uiState) {
             SettingsUiState.Loading -> LoadingView(Modifier.padding(paddingValues))
@@ -127,7 +143,7 @@ private fun TimeRow(
     Row(
         modifier
             .padding(12.dp),
-        verticalAlignment = Alignment.Bottom
+        verticalAlignment = Alignment.CenterVertically
     ) {
         TitleMediumText(stringResource(R.string.time_turn))
         Spacer(Modifier.weight(1F))
@@ -143,7 +159,7 @@ private fun ExtraTimeRow(
     Row(
         modifier
             .padding(12.dp),
-        verticalAlignment = Alignment.Bottom
+        verticalAlignment = Alignment.CenterVertically
     ) {
         TitleMediumText(stringResource(R.string.extra_time))
         Spacer(Modifier.weight(1F))
@@ -159,7 +175,7 @@ private fun PlayerNumberRow(
     Row(
         modifier
             .padding(12.dp),
-        verticalAlignment = Alignment.Bottom
+        verticalAlignment = Alignment.CenterVertically
     ) {
         TitleMediumText(stringResource(R.string.player_number))
         Spacer(Modifier.weight(1F))

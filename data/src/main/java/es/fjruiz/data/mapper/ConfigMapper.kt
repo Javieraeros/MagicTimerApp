@@ -16,6 +16,6 @@ private fun PlayerNumber.toInt(): Int = when (this) {
 
 private fun Int.toPlayerNumber(): PlayerNumber = when (this) {
     2 -> PlayerNumber.TWO
-    3 -> PlayerNumber.TWO
+    3 -> PlayerNumber.THREE
     else -> PlayerNumber.FOUR
 }

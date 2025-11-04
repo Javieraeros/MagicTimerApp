@@ -3,6 +3,7 @@ package es.fjruiz.magictimer.ui.screens.settings
 import androidx.lifecycle.viewModelScope
 import es.fjruiz.domain.usecase.GetConfigUC
 import es.fjruiz.domain.usecase.UpdateConfigUC
+import es.fjruiz.domain.usecase.game.CreateGameUC
 import es.fjruiz.magictimer.navigation.navigator.Navigator
 import es.fjruiz.magictimer.ui.base.BaseViewModel
 import es.fjruiz.magictimer.ui.mapper.toModel
@@ -23,7 +24,8 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(
     private val navigator: Navigator,
     private val getConfigUC: GetConfigUC,
-    private val updateConfigUC: UpdateConfigUC
+    private val updateConfigUC: UpdateConfigUC,
+    private val createGameUC: CreateGameUC
 ): BaseViewModel<SettingsIntent>() {
 
     private val _uiState: MutableStateFlow<SettingsUiState> = MutableStateFlow(SettingsUiState.Loading)
@@ -78,13 +80,22 @@ class SettingsViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 updateConfigUC(configVO.toModel())
                 lastConfig = null
-                onClose()
+
+                val settings = SettingsVO(getConfigUC().toVO(),
+                    showNewGameConfirmation = false,
+                    showSavedCorrectly = true
+                )
+                _uiState.value = SettingsUiState.Success(settings)
             }
         }
     }
 
     private fun onConfirmNewGame() {
-        // TODO: 29/10/25 call use case
+        viewModelScope.launch(Dispatchers.IO) {
+            val config = getConfigUC()
+            createGameUC(config)
+            _uiState.value = SettingsUiState.Success(SettingsVO(config.toVO(), false))
+        }
     }
 
     private fun onIgnoreNewGame() {
