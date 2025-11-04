@@ -15,6 +15,6 @@ internal val databaseModule = module {
 
     single {
         val database = get<BaseDatabase>()
-        database.taskDao()
+        database.playerDao()
     }
 }
