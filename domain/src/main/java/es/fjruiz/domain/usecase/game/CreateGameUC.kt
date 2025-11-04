@@ -23,8 +23,11 @@ private val imageList = listOf(
 
 class CreateGameUC(private val gameRepository: GameRepository) {
     suspend operator fun invoke(config: Config): Game {
+        val lastGame = gameRepository.getLastUnfinishedGame()
         val game = createGame(config)
         gameRepository.createGame(game)
+
+        lastGame?.copy(isFinished = true)?.let { gameRepository.updateGame(it) }
         return game
     }
 
