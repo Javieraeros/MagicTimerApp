@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">MagicTimerApp</string>
-    <string name="add_task">Añade tu tarea</string>
     <string name="resume">Continue</string>
     <string name="resume_body">Press continue to resume the game</string>
 
