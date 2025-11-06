@@ -6,6 +6,7 @@ import es.fjruiz.domain.usecase.game.CreateGameUC
 import es.fjruiz.domain.usecase.game.GetGameUC
 import es.fjruiz.domain.usecase.game.GetLastGameUC
 import es.fjruiz.domain.usecase.game.IsActiveGameUC
+import es.fjruiz.domain.usecase.game.OnChangeTurnUC
 import es.fjruiz.domain.usecase.game.UpdateGameUC
 import es.fjruiz.domain.usecase.game.UpdateTimeUC
 import es.fjruiz.magictimer.navigation.Destination
@@ -33,6 +34,7 @@ class CounterViewModel(
     private val updateGameUC: UpdateGameUC,
     private val updateTimeUC: UpdateTimeUC,
     private val getConfigUC: GetConfigUC,
+    private val onChangeTurn: OnChangeTurnUC,
     private val navigator: Navigator
 ) : BaseViewModel<CounterIntent>() {
 
@@ -126,26 +128,8 @@ class CounterViewModel(
 
     private fun handleOnTurnClicked(playerId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val config = getConfigUC()
-            getGameUC(currentId)?.let { game ->
-                val newGame =
-                    game.copy(players = game.players.map {
-                        val extraTimeLeft =
-                            if (it.hasTurn && it.isExtraTimeRunning.not() && it.extraTimeLeft < 2) {
-                                it.extraTimeLeft + 1
-                            } else {
-                                it.extraTimeLeft
-                            }
-
-                        it.copy(
-                            timeLeft = config.time,
-                            hasTurn = it.playerId == playerId,
-                            hasPriority = it.playerId == playerId,
-                            extraTimeLeft = extraTimeLeft,
-                            isExtraTimeRunning = false
-                        )
-                    })
-                updateGameUC(newGame)
+            onChangeTurn(getConfigUC(), currentId, playerId)?.let { game ->
+                updateGameUC(game)
             }
         }
     }
