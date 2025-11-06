@@ -6,9 +6,11 @@ import es.fjruiz.domain.usecase.game.CreateGameUC
 import es.fjruiz.domain.usecase.game.GetGameUC
 import es.fjruiz.domain.usecase.game.GetLastGameUC
 import es.fjruiz.domain.usecase.game.IsActiveGameUC
+import es.fjruiz.domain.usecase.game.OnChangeTurnUC
 import es.fjruiz.domain.usecase.game.UpdateGameUC
 import es.fjruiz.domain.usecase.game.UpdateTimeUC
 import org.koin.dsl.module
+import kotlin.math.sin
 
 val useCaseModule = module {
     single { GetConfigUC(get()) }
@@ -20,4 +22,5 @@ val useCaseModule = module {
     single { IsActiveGameUC(get()) }
     single { UpdateGameUC(get()) }
     single { UpdateTimeUC(get()) }
+    single { OnChangeTurnUC(get()) }
 }
