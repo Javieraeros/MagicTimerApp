@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SettingsViewModel(
     private val navigator: Navigator,
@@ -95,6 +96,9 @@ class SettingsViewModel(
             val config = getConfigUC()
             createGameUC(config)
             _uiState.value = SettingsUiState.Success(SettingsVO(config.toVO(), false))
+            withContext(Dispatchers.Main) {
+                navigator.navigateBack()
+            }
         }
     }
 

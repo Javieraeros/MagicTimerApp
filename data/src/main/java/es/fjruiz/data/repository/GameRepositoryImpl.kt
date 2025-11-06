@@ -10,7 +10,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class GameRepositoryImpl(private val localGameDataSource: LocalGameDataSource): GameRepository {
+
+    override suspend fun getGame(id: Long): Game? = localGameDataSource.getGame(id)?.toModel()
     override suspend fun getLastGame(): Flow<Game> = localGameDataSource.getLastGame().map { it.toModel() }
+
+    override suspend fun getLastUnfinishedGame(): Game? = localGameDataSource.getLastUnfinishedGame()?.toModel()
 
     override suspend fun isActiveGame(): Boolean = localGameDataSource.isActiveGame()
 

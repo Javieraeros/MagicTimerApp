@@ -14,8 +14,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 abstract class GameDao {
 
-    @Transaction
-    @Query("SELECT * from GameDTO WHERE isFinished == 0")
+    @Query("SELECT * from GameDTO WHERE :id == id")
+    abstract fun getGame(id: Long): GameWithPlayersDTO?
+
+    @Query("SELECT * from GameDTO WHERE isFinished == 0 ORDER BY id DESC")
     abstract fun getLastUnfinishedGame(): Flow<GameWithPlayersDTO>
 
     @Insert
@@ -30,8 +32,8 @@ abstract class GameDao {
     @Insert
     abstract suspend fun insert(gameDTO: GameDTO)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateGame(gameDTO: GameWithPlayersDTO) {
+    @Transaction
+    open suspend fun updateGame(gameDTO: GameWithPlayersDTO) {
         update(gameDTO.players)
         update(gameDTO.game)
     }
