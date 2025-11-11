@@ -2,18 +2,24 @@
 
 package es.fjruiz.magictimer.ui.screens.settings
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -23,21 +29,26 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import es.fjruiz.commoncompose.ext.Spacer
+import es.fjruiz.commoncompose.ext.rememberSaveableState
 import es.fjruiz.components.button.PrimaryButton
 import es.fjruiz.components.text.BodyMediumText
 import es.fjruiz.components.text.TitleLargeText
 import es.fjruiz.components.text.TitleMediumText
-import es.fjruiz.components.textfield.DigitTextField
+import es.fjruiz.components.text.TitleSmallText
 import es.fjruiz.magictimer.R
 import es.fjruiz.magictimer.ui.base.HandleIntent
 import es.fjruiz.magictimer.ui.component.LoadingView
 import es.fjruiz.magictimer.ui.vo.ConfigVO
+import es.fjruiz.magictimer.ui.vo.NumberRowVO
 import es.fjruiz.magictimer.ui.vo.SettingsVO
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -88,25 +99,38 @@ private fun SettingsContent(
     handleIntent: HandleIntent<SettingsIntent>,
     modifier: Modifier = Modifier
 ) {
-    val time = TextFieldState(settingsVO.time)
-    val extraTime = TextFieldState(settingsVO.extraTime)
-    val playerNumber = TextFieldState(settingsVO.playerNumber)
+    var time by rememberSaveableState(settingsVO.time)
+    var extraTime by rememberSaveableState(settingsVO.extraTime)
+    var playerNumber by rememberSaveableState(settingsVO.playerNumber)
 
     Column(modifier) {
         Spacer(8.dp)
-        TimeRow(time)
+        NumberRow(NumberRowVO(stringResource(R.string.time_turn), time, {
+            time -= 5
+        }, {
+            time += 5
+        }, lessButtonEnabled = time > 5))
         Spacer(8.dp)
-        ExtraTimeRow(extraTime)
+        NumberRow(NumberRowVO(stringResource(R.string.extra_time), extraTime, {
+            extraTime -= 5
+        }, {
+            extraTime += 5
+        }, extraTime > 5))
         Spacer(8.dp)
-        PlayerNumberRow(playerNumber)
+
+        NumberRow(NumberRowVO(stringResource(R.string.player_number), playerNumber.toLong(), {
+            playerNumber--
+        }, {
+            playerNumber++
+        }, playerNumber > 2, playerNumber < 4))
         Spacer(Modifier.weight(1F))
-        Row(Modifier.padding(horizontal = 12.dp, vertical = 12.dp)) {
+        Row(Modifier.padding(horizontal = 24.dp, vertical = 60.dp)) {
             PrimaryButton(stringResource(R.string.new_game), {
                 handleIntent(SettingsIntent.OnNewGameClicked)
             })
             Spacer(Modifier.weight(1f))
             PrimaryButton(stringResource(R.string.save), {
-                handleIntent(SettingsIntent.Save(ConfigVO(time.text.toString(), extraTime.text.toString(), playerNumber.text.toString())))
+                handleIntent(SettingsIntent.Save(ConfigVO(time, extraTime, playerNumber)))
             })
         }
     }
@@ -136,8 +160,8 @@ private fun SettingsTopAppBar(
 }
 
 @Composable
-private fun TimeRow(
-    time: TextFieldState,
+fun NumberRow(
+    numberRowVO: NumberRowVO,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -145,41 +169,35 @@ private fun TimeRow(
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TitleMediumText(stringResource(R.string.time_turn))
+        TitleMediumText(numberRowVO.label)
         Spacer(Modifier.weight(1F))
-        DigitTextField(time, Modifier.width(80.dp))
-    }
-}
-
-@Composable
-private fun ExtraTimeRow(
-    extraTime: TextFieldState,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier
-            .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TitleMediumText(stringResource(R.string.extra_time))
-        Spacer(Modifier.weight(1F))
-        DigitTextField(extraTime, Modifier.width(80.dp))
-    }
-}
-
-@Composable
-private fun PlayerNumberRow(
-    playerNumber: TextFieldState,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier
-            .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TitleMediumText(stringResource(R.string.player_number))
-        Spacer(Modifier.weight(1F))
-        DigitTextField(playerNumber, Modifier.width(80.dp))
+        Icon(
+            Icons.Default.Remove,
+            "Less",
+            Modifier
+                .clickable(numberRowVO.lessButtonEnabled, onClick = numberRowVO.onLessClicked)
+                .background(
+                    MaterialTheme.colorScheme.primaryContainer, shape = CircleShape
+                ),
+            tint = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+        TitleSmallText(
+            numberRowVO.value.toString(), Modifier
+                .padding(horizontal = 8.dp)
+                .width(60.dp)
+                .border(1.dp, Color.White, shape = MaterialTheme.shapes.small),
+            textAlign = TextAlign.Center
+        )
+        Icon(
+            Icons.Default.Add,
+            "More",
+            Modifier
+                .clickable(numberRowVO.moreButtonEnabled, onClick = numberRowVO.onMoreClicked)
+                .background(
+                    MaterialTheme.colorScheme.primaryContainer, shape = CircleShape
+                ),
+            tint = MaterialTheme.colorScheme.onPrimaryContainer
+        )
     }
 }
 
