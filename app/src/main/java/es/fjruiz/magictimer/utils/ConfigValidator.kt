@@ -9,18 +9,18 @@ class InvalidExtraTimeException(): SettingException()
 class InvalidPlayerNumberException(): SettingException()
 
 fun isValid(configVO: ConfigVO): Boolean {
-    val time = configVO.time.toIntOrNull()
-    val extraTime = configVO.extraTime.toIntOrNull()
-    val playerNumber = configVO.playerNumber.toIntOrNull()
-    if (time == null || time < 1) {
+    val time = configVO.time
+    val extraTime = configVO.extraTime
+    val playerNumber = configVO.playerNumber
+    if (time < 1) {
         throw InvalidTimeException()
     }
 
-    if (extraTime == null || extraTime < 1) {
+    if (extraTime < 1) {
         throw InvalidExtraTimeException()
     }
 
-    if (playerNumber == null || playerNumber < 2 || playerNumber > 4) {
+    if (playerNumber !in 2..4) {
         throw InvalidPlayerNumberException()
     }
 
