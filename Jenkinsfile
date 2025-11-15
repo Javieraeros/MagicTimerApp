@@ -37,7 +37,7 @@ pipeline {
 }
 
 def notify(status) {
-    def jobName = env.JOB_NAME + ' ' + env.GIT_BRANCH
+    def jobName = env.GIT_BRANCH
     def buildNo = env.BUILD_NUMBER
 
     sh "echo ${jobName} Build #${buildNo} ${status}"
