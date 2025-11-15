@@ -21,4 +21,6 @@
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
     <string name="success_saved">Saves successfully</string>
+    <string name="alert_time">Time alert</string>
+    <string name="invalid_alert_time">Alert time must be greater than 0 and lower than time</string>
 </resources>

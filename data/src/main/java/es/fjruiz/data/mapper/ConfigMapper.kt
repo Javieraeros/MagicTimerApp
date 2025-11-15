@@ -4,9 +4,9 @@ import es.fjruiz.data.dto.ConfigDTO
 import es.fjruiz.domain.model.Config
 import es.fjruiz.domain.model.PlayerNumber
 
-fun Config.toDTO(): ConfigDTO = ConfigDTO(time, extraTime, playerNumber.toInt())
+fun Config.toDTO(): ConfigDTO = ConfigDTO(time, extraTime, alertTime, playerNumber.toInt())
 
-fun ConfigDTO.toModel(): Config = Config(time, extraTime, players.toPlayerNumber())
+fun ConfigDTO.toModel(): Config = Config(time, extraTime, alertTime, players.toPlayerNumber())
 
 private fun PlayerNumber.toInt(): Int = when (this) {
     PlayerNumber.TWO -> 2

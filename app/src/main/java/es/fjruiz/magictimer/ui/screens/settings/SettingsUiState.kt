@@ -11,5 +11,6 @@ sealed class SettingsUiState {
 sealed class SettingsError {
     data object InvalidTime: SettingsError()
     data object InvalidExtraTime: SettingsError()
+    data object InvalidAlertTime: SettingsError()
     data object InvalidPlayerNumber: SettingsError()
 }

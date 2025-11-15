@@ -21,4 +21,6 @@
     <string name="cancel">Cancelar</string>
     <string name="ok">Aceptar</string>
     <string name="success_saved">Guardado correctamente</string>
+    <string name="alert_time">Alerta de tiempo</string>
+    <string name="invalid_alert_time">El tiempo de alerta debe ser mayor que 0 y menor que el tiempo del turno</string>
 </resources>
