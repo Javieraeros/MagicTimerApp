@@ -101,6 +101,7 @@ private fun SettingsContent(
 ) {
     var time by rememberSaveableState(settingsVO.time)
     var extraTime by rememberSaveableState(settingsVO.extraTime)
+    var alertTime by rememberSaveableState(settingsVO.alertTime)
     var playerNumber by rememberSaveableState(settingsVO.playerNumber)
 
     Column(modifier) {
@@ -110,19 +111,28 @@ private fun SettingsContent(
         }, {
             time += 5
         }, lessButtonEnabled = time > 5))
+
         Spacer(8.dp)
         NumberRow(NumberRowVO(stringResource(R.string.extra_time), extraTime, {
             extraTime -= 5
         }, {
             extraTime += 5
         }, extraTime > 5))
-        Spacer(8.dp)
 
+        Spacer(8.dp)
+        NumberRow(NumberRowVO(stringResource(R.string.alert_time), alertTime, {
+            alertTime -= 5
+        }, {
+            alertTime += 5
+        }, alertTime > 0, alertTime < time))
+
+        Spacer(8.dp)
         NumberRow(NumberRowVO(stringResource(R.string.player_number), playerNumber.toLong(), {
             playerNumber--
         }, {
             playerNumber++
         }, playerNumber > 2, playerNumber < 4))
+
         Spacer(Modifier.weight(1F))
         Row(Modifier.padding(horizontal = 24.dp, vertical = 60.dp)) {
             PrimaryButton(stringResource(R.string.new_game), {
@@ -130,7 +140,7 @@ private fun SettingsContent(
             })
             Spacer(Modifier.weight(1f))
             PrimaryButton(stringResource(R.string.save), {
-                handleIntent(SettingsIntent.Save(ConfigVO(time, extraTime, playerNumber)))
+                handleIntent(SettingsIntent.Save(ConfigVO(time, extraTime, alertTime, playerNumber)))
             })
         }
     }
@@ -210,6 +220,7 @@ private fun ErrorView(
     val errorBody = when (settingsError) {
         SettingsError.InvalidExtraTime -> R.string.invalid_extra_time
         SettingsError.InvalidPlayerNumber -> R.string.invalid_player_number
+        SettingsError.InvalidAlertTime -> R.string.invalid_alert_time
         SettingsError.InvalidTime -> R.string.invalid_time
     }
     AlertDialog({

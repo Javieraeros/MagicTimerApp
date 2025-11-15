@@ -3,18 +3,13 @@ package es.fjruiz.magictimer.ui.screens.counter
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,6 +32,7 @@ import es.fjruiz.magictimer.ui.component.LoadingView
 import es.fjruiz.magictimer.ui.screens.counter.view.FourPlayerView
 import es.fjruiz.magictimer.ui.screens.counter.view.ThreePlayerView
 import es.fjruiz.magictimer.ui.screens.counter.view.TwoPlayerView
+import es.fjruiz.magictimer.utils.AlertLauncher
 import org.koin.androidx.compose.koinViewModel
 
 private const val bottomBarBackground = "https://i.imgur.com/lP6b13v.jpg"
@@ -58,6 +55,9 @@ fun CounterScreen(counterViewModel: CounterViewModel = koinViewModel()) {
 
             is CounterUiState.Success -> {
                 val successState = (state as CounterUiState.Success)
+                if (successState.alert) {
+                    AlertLauncher.launch(LocalContext.current)
+                }
                 when (successState.counterCardModels.size) {
                     2 -> TwoPlayerView(
                         successState.counterCardModels[0],

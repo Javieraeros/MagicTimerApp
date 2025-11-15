@@ -1,6 +1,8 @@
 package es.fjruiz.magictimer.ui.screens.counter
 
 import androidx.lifecycle.viewModelScope
+import es.fjruiz.domain.model.Config
+import es.fjruiz.domain.model.Player
 import es.fjruiz.domain.usecase.GetConfigUC
 import es.fjruiz.domain.usecase.game.CreateGameUC
 import es.fjruiz.domain.usecase.game.GetGameUC
@@ -21,10 +23,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlin.concurrent.timer
 
 class CounterViewModel(
     private val getLastGameUC: GetLastGameUC,
@@ -84,8 +84,9 @@ class CounterViewModel(
                     collectJob?.cancel()
                     collectJob = null
                 } else {
+                    val config = getConfigUC()
                     lastUpdateTime = System.currentTimeMillis()
-                    _uiState.value = Success(lastGame.players.map { it.toModel() })
+                    _uiState.value = Success(lastGame.players.map { it.toModel() }, shouldVibrate(config, lastGame.players))
                 }
             }
         }
@@ -166,4 +167,8 @@ class CounterViewModel(
 
         return adjustedSecond
     }
+
+    private fun shouldVibrate(config: Config, players: List<Player>): Boolean =
+        config.alertTime != 0L && players.firstOrNull { it.hasPriority }?.timeLeft == config.alertTime
+
 }

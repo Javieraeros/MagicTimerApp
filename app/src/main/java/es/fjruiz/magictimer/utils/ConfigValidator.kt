@@ -6,11 +6,13 @@ sealed class SettingException(): Exception()
 
 class InvalidTimeException(): SettingException()
 class InvalidExtraTimeException(): SettingException()
+class InvalidAlertTimeException(): SettingException()
 class InvalidPlayerNumberException(): SettingException()
 
 fun isValid(configVO: ConfigVO): Boolean {
     val time = configVO.time
     val extraTime = configVO.extraTime
+    val alertTime = configVO.alertTime
     val playerNumber = configVO.playerNumber
     if (time < 1) {
         throw InvalidTimeException()
@@ -22,6 +24,10 @@ fun isValid(configVO: ConfigVO): Boolean {
 
     if (playerNumber !in 2..4) {
         throw InvalidPlayerNumberException()
+    }
+
+    if (alertTime > time) {
+        throw InvalidAlertTimeException()
     }
 
     return true

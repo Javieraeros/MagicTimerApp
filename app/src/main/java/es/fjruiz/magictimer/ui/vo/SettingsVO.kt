@@ -7,5 +7,6 @@ data class SettingsVO(
 ) {
     val time = configVO.time
     val extraTime = configVO.extraTime
+    val alertTime = configVO.alertTime
     val playerNumber = configVO.playerNumber
 }

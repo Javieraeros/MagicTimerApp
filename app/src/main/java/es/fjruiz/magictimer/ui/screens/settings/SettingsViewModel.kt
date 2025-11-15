@@ -10,6 +10,7 @@ import es.fjruiz.magictimer.ui.mapper.toModel
 import es.fjruiz.magictimer.ui.mapper.toVO
 import es.fjruiz.magictimer.ui.vo.ConfigVO
 import es.fjruiz.magictimer.ui.vo.SettingsVO
+import es.fjruiz.magictimer.utils.InvalidAlertTimeException
 import es.fjruiz.magictimer.utils.InvalidExtraTimeException
 import es.fjruiz.magictimer.utils.InvalidPlayerNumberException
 import es.fjruiz.magictimer.utils.InvalidTimeException
@@ -125,6 +126,7 @@ class SettingsViewModel(
             is InvalidTimeException -> SettingsError.InvalidTime
             is InvalidExtraTimeException -> SettingsError.InvalidExtraTime
             is InvalidPlayerNumberException -> SettingsError.InvalidPlayerNumber
+            is InvalidAlertTimeException -> SettingsError.InvalidAlertTime
         }
 
         _uiState.update {
