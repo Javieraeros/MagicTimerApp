@@ -8,7 +8,6 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
-import kotlinx.serialization.EncodeDefault
 
 private const val SETTINGS_PREF_FILE = "SETTINGS_PREF"
 

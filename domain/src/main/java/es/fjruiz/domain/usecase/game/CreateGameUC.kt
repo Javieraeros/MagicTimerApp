@@ -4,7 +4,7 @@ import es.fjruiz.domain.model.Config
 import es.fjruiz.domain.model.Game
 import es.fjruiz.domain.model.Player
 import es.fjruiz.domain.repository.GameRepository
-
+import javax.inject.Inject
 
 const val jace =
     "https://images.ctfassets.net/s5n2t79q9icq/5Z5BZ90db9laZwDh9hO7RP/83ea76b645bfaad7973099d009f67356/jace-beleren-1920.jpg?q=80"
@@ -21,7 +21,7 @@ private val imageList = listOf(
     ajani
 )
 
-class CreateGameUC(private val gameRepository: GameRepository) {
+class CreateGameUC @Inject constructor(private val gameRepository: GameRepository) {
     suspend operator fun invoke(config: Config): Game {
         val lastGame = gameRepository.getLastUnfinishedGame()
         val game = createGame(config)

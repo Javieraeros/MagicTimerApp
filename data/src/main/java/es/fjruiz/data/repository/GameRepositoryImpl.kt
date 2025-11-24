@@ -8,8 +8,10 @@ import es.fjruiz.domain.model.Game
 import es.fjruiz.domain.repository.GameRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class GameRepositoryImpl(private val localGameDataSource: LocalGameDataSource): GameRepository {
+class GameRepositoryImpl
+    @Inject constructor(private val localGameDataSource: LocalGameDataSource): GameRepository {
 
     override suspend fun getGame(id: Long): Game? = localGameDataSource.getGame(id)?.toModel()
     override suspend fun getLastGame(): Flow<Game> = localGameDataSource.getLastGame().map { it.toModel() }

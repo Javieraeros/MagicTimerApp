@@ -5,8 +5,10 @@ import es.fjruiz.data.mapper.toDTO
 import es.fjruiz.data.mapper.toModel
 import es.fjruiz.domain.model.Config
 import es.fjruiz.domain.repository.ConfigRepository
+import javax.inject.Inject
 
-class ConfigRepositoryImpl(private val localDataSource: LocalConfigDataSource): ConfigRepository {
+class ConfigRepositoryImpl
+    @Inject constructor(private val localDataSource: LocalConfigDataSource): ConfigRepository {
     override suspend fun getConfig(): Config {
         return localDataSource.getConfig().toModel()
     }

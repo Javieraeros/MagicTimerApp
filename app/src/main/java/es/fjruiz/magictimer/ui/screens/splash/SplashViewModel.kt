@@ -1,13 +1,17 @@
 package es.fjruiz.magictimer.ui.screens.splash
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import es.fjruiz.magictimer.navigation.Destination
 import es.fjruiz.magictimer.navigation.navigator.Navigator
 import es.fjruiz.magictimer.ui.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel(private val navigator: Navigator): BaseViewModel<SplashIntent>() {
+@HiltViewModel
+class SplashViewModel @Inject constructor(private val navigator: Navigator)
+    : BaseViewModel<SplashIntent>() {
 
     override fun handleIntent(intent: SplashIntent) {
         when (intent) {

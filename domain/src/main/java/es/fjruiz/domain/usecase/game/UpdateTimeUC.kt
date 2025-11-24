@@ -6,9 +6,10 @@ import es.fjruiz.domain.model.Player
 import es.fjruiz.domain.repository.GameRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 
-class UpdateTimeUC(private val gameRepository: GameRepository) {
+class UpdateTimeUC @Inject constructor(private val gameRepository: GameRepository) {
 
     suspend operator fun invoke(config: Config, game: Game) {
         val updatedGame = updateTimer(config, game)

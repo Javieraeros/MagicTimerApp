@@ -36,7 +36,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import es.fjruiz.commoncompose.ext.Spacer
 import es.fjruiz.commoncompose.ext.rememberSaveableState
 import es.fjruiz.components.button.PrimaryButton
@@ -51,10 +53,9 @@ import es.fjruiz.magictimer.ui.vo.ConfigVO
 import es.fjruiz.magictimer.ui.vo.NumberRowVO
 import es.fjruiz.magictimer.ui.vo.SettingsVO
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
+fun SettingsScreen(settingsViewModel: SettingsViewModel = hiltViewModel()) {
     LaunchedEffect(Unit) {
         settingsViewModel.handleIntent(SettingsIntent.OnInit)
     }

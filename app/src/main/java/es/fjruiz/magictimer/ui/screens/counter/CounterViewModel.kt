@@ -1,6 +1,7 @@
 package es.fjruiz.magictimer.ui.screens.counter
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import es.fjruiz.domain.model.Config
 import es.fjruiz.domain.model.Player
 import es.fjruiz.domain.usecase.GetConfigUC
@@ -25,8 +26,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CounterViewModel(
+@HiltViewModel
+class CounterViewModel @Inject constructor(
     private val getLastGameUC: GetLastGameUC,
     private val isActiveGameUC: IsActiveGameUC,
     private val createGameUC: CreateGameUC,

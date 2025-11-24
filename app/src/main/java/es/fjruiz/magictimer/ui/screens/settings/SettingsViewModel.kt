@@ -1,6 +1,7 @@
 package es.fjruiz.magictimer.ui.screens.settings
 
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import es.fjruiz.domain.usecase.GetConfigUC
 import es.fjruiz.domain.usecase.UpdateConfigUC
 import es.fjruiz.domain.usecase.game.CreateGameUC
@@ -22,8 +23,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SettingsViewModel(
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
     private val navigator: Navigator,
     private val getConfigUC: GetConfigUC,
     private val updateConfigUC: UpdateConfigUC,
