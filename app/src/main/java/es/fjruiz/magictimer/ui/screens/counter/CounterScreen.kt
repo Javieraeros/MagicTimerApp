@@ -24,7 +24,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import es.fjruiz.magictimer.R
 import es.fjruiz.magictimer.ui.base.HandleIntent
@@ -33,12 +35,11 @@ import es.fjruiz.magictimer.ui.screens.counter.view.FourPlayerView
 import es.fjruiz.magictimer.ui.screens.counter.view.ThreePlayerView
 import es.fjruiz.magictimer.ui.screens.counter.view.TwoPlayerView
 import es.fjruiz.magictimer.utils.AlertLauncher
-import org.koin.androidx.compose.koinViewModel
 
 private const val bottomBarBackground = "https://i.imgur.com/lP6b13v.jpg"
 
 @Composable
-fun CounterScreen(counterViewModel: CounterViewModel = koinViewModel()) {
+fun CounterScreen(counterViewModel: CounterViewModel = hiltViewModel()) {
     val state by counterViewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
         counterViewModel.handleIntent(CounterIntent.OnInit)

@@ -2,13 +2,14 @@ package es.fjruiz.data.datasource.local
 
 import es.fjruiz.data.dto.ConfigDTO
 import es.fjruiz.data.persistance.DataStoreManager
+import javax.inject.Inject
 
 interface LocalConfigDataSource {
     suspend fun getConfig(): ConfigDTO
     suspend fun updateConfig(configDTO: ConfigDTO)
 }
 
-class LocalConfigDataSourceImpl(
+class LocalConfigDataSourceImpl @Inject constructor(
     private val dataStoreManager: DataStoreManager
 ) : LocalConfigDataSource {
 

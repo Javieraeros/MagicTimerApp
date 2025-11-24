@@ -10,10 +10,9 @@ import es.fjruiz.magictimer.navigation.navigator.NavigationIntent
 import es.fjruiz.magictimer.navigation.navigator.Navigator
 import es.fjruiz.magictimer.ui.theme.MagicTimerTheme
 import kotlinx.coroutines.flow.receiveAsFlow
-import org.koin.compose.koinInject
 
 @Composable
-fun MainNavigation(navigator: Navigator = koinInject()) {
+fun MainNavigation(navigator: Navigator) {
     val navController = rememberNavController()
     val activity = LocalActivity.current
     val navChannel = navigator.navigationChannel

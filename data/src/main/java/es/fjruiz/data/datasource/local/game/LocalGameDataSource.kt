@@ -4,6 +4,7 @@ import es.fjruiz.data.dao.GameDao
 import es.fjruiz.data.dto.GameDTO
 import es.fjruiz.data.dto.GameWithPlayersDTO
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 interface LocalGameDataSource {
 
@@ -15,7 +16,7 @@ interface LocalGameDataSource {
     suspend fun updateGame(game: GameWithPlayersDTO)
 }
 
-class LocalGameDataSourceImpl(private val gameDao: GameDao): LocalGameDataSource {
+class LocalGameDataSourceImpl @Inject constructor(private val gameDao: GameDao): LocalGameDataSource {
 
     override suspend fun getGame(id: Long): GameWithPlayersDTO? = gameDao.getGame(id)
 

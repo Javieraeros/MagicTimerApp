@@ -3,8 +3,9 @@ package es.fjruiz.domain.usecase.game
 import es.fjruiz.domain.model.Config
 import es.fjruiz.domain.model.Game
 import es.fjruiz.domain.repository.GameRepository
+import javax.inject.Inject
 
-class OnChangeTurnUC(private val gameRepository: GameRepository) {
+class OnChangeTurnUC @Inject constructor(private val gameRepository: GameRepository) {
 
     suspend operator fun invoke(config: Config, gameId: Long, playerId: String): Game? =
         gameRepository.getGame(gameId)?.let { game ->

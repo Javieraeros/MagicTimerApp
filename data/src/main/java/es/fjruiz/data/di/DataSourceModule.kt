@@ -1,12 +1,29 @@
 package es.fjruiz.data.di
 
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import es.fjruiz.data.datasource.local.LocalConfigDataSource
 import es.fjruiz.data.datasource.local.LocalConfigDataSourceImpl
 import es.fjruiz.data.datasource.local.game.LocalGameDataSource
 import es.fjruiz.data.datasource.local.game.LocalGameDataSourceImpl
-import org.koin.dsl.module
+import javax.inject.Singleton
 
-internal val dataSourceModule = module {
-    single<LocalConfigDataSource> { LocalConfigDataSourceImpl(get()) }
-    single<LocalGameDataSource> { LocalGameDataSourceImpl(get()) }
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class DataSourceModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindLocalConfigDataSource(
+        localDataConfigDataSourceImpl: LocalConfigDataSourceImpl
+    ): LocalConfigDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindLocalGameDataSource(
+        localGameDataSource: LocalGameDataSourceImpl
+    ): LocalGameDataSource
+
 }
