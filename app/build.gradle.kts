@@ -127,11 +127,12 @@ dependencies {
 fun Project.getLocalProperty(key: String, file: String = "local.properties"): String {
     val properties = Properties()
     val localProperties = File(file)
-    if (localProperties.isFile) {
+    return if (localProperties.isFile) {
         InputStreamReader(FileInputStream(localProperties), Charsets.UTF_8).use { reader ->
             properties.load(reader)
         }
-    } else error("File from not found")
-
-    return properties.getProperty(key)
+        properties.getProperty(key)
+    } else {
+        System.getenv(key)
+    }
 }
