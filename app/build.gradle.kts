@@ -24,6 +24,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["label"] = "MagicTimerApp"
     }
 
     signingConfigs {
@@ -40,6 +42,16 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
+            manifestPlaceholders["label"] = "MTA Debug"
+        }
+
+        create("profileGeneration") {
+            isDebuggable = false
+            isMinifyEnabled = false
+            isShrinkResources = false
+            applicationIdSuffix = ".profile"
+            versionNameSuffix = "-profile"
+            manifestPlaceholders["label"] = "MTA Profile"
         }
 
         release {
