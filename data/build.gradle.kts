@@ -21,10 +21,6 @@ android {
     buildFeatures.buildConfig = true
 
     buildTypes {
-        create("profileGeneration") {
-            isMinifyEnabled = false
-            isShrinkResources = false
-        }
         release {
             isMinifyEnabled = false
             proguardFiles(
