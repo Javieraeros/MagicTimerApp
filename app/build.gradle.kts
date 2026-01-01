@@ -46,15 +46,6 @@ android {
             manifestPlaceholders["label"] = "MTA Debug"
         }
 
-        create("profileGeneration") {
-            isDebuggable = false
-            isMinifyEnabled = false
-            isShrinkResources = false
-            applicationIdSuffix = ".profile"
-            versionNameSuffix = "-profile"
-            manifestPlaceholders["label"] = "MTA Profile"
-        }
-
         release {
             isMinifyEnabled = true
             isShrinkResources = true

@@ -18,13 +18,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        create("profileGeneration") {
-            isMinifyEnabled = false
-            isShrinkResources = false
-        }
-    }
-
     targetProjectPath = ":app"
 
     // This code creates the gradle managed device used to generate baseline profiles.
