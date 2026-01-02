@@ -18,7 +18,8 @@ object GameProvider {
                 Random.nextBoolean(),
                 Random.nextBoolean(),
                 2,
-                Random.nextBoolean()
+                Random.nextBoolean(),
+                totalTimeConsumed = 0L
             ),
             Player(
                 playerId = "2",
@@ -28,7 +29,8 @@ object GameProvider {
                 Random.nextBoolean(),
                 Random.nextBoolean(),
                 2,
-                Random.nextBoolean()
+                Random.nextBoolean(),
+                totalTimeConsumed = 0L
             )
         ),
         false,
@@ -46,7 +48,8 @@ object GameProvider {
                 hasTurn = Random.nextBoolean(),
                 hasPriority = Random.nextBoolean(),
                 extraTimeLeft = 2,
-                isExtraTimeRunning = Random.nextBoolean()
+                isExtraTimeRunning = Random.nextBoolean(),
+                totalTimeConsumed = 0L
             ),
             Player(
                 playerId = "4",
@@ -56,7 +59,8 @@ object GameProvider {
                 hasTurn = true,
                 hasPriority = Random.nextBoolean(),
                 extraTimeLeft = 0,
-                isExtraTimeRunning = false
+                isExtraTimeRunning = false,
+                totalTimeConsumed = 0L
             )
         ),
         false,

@@ -10,5 +10,6 @@ data class Player(
     val hasTurn: Boolean,
     val hasPriority: Boolean,
     val extraTimeLeft: Int,
-    val isExtraTimeRunning: Boolean
+    val isExtraTimeRunning: Boolean,
+    val totalTimeConsumed: Seconds
 )

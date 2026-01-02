@@ -8,7 +8,8 @@ data class CounterCardModel(
     val image: String,
     val hasTurn: Boolean,
     val hasPriority: Boolean,
-    val stars: StarEnum
+    val stars: StarEnum,
+    val totalTimeConsumed: String
 )
 
 enum class StarEnum {
