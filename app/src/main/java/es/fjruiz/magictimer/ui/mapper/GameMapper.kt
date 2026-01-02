@@ -12,7 +12,8 @@ fun Player.toModel(): CounterCardModel = CounterCardModel(
     image,
     hasTurn,
     hasPriority,
-    extraTimeLeft.toStarEnum()
+    extraTimeLeft.toStarEnum(),
+    totalTimeConsumed.toTime()
 )
 
 fun Int.toStarEnum(): StarEnum = when (this) {

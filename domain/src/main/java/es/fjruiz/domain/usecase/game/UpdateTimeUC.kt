@@ -4,6 +4,7 @@ import es.fjruiz.domain.model.Config
 import es.fjruiz.domain.model.Game
 import es.fjruiz.domain.model.Player
 import es.fjruiz.domain.repository.GameRepository
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import javax.inject.Inject
@@ -13,7 +14,7 @@ class UpdateTimeUC @Inject constructor(private val gameRepository: GameRepositor
 
     suspend operator fun invoke(config: Config, game: Game) {
         val updatedGame = updateTimer(config, game)
-        if (coroutineContext.isActive) {
+        if (currentCoroutineContext().isActive) {
             gameRepository.updateGame(updatedGame)
         }
     }
@@ -33,19 +34,20 @@ class UpdateTimeUC @Inject constructor(private val gameRepository: GameRepositor
     private fun updatePriorityPlayer(config: Config, player: Player): Player =
         when {
             player.timeLeft > 0 -> {
-                player.copy(timeLeft = player.timeLeft - 1)
+                player.copy(timeLeft = player.timeLeft - 1, totalTimeConsumed = player.totalTimeConsumed + 1)
             }
 
             player.timeLeft == 0L && player.extraTimeLeft > 0 -> {
                 player.copy(
                     timeLeft = config.extraTime,
                     extraTimeLeft = player.extraTimeLeft - 1,
-                    isExtraTimeRunning = true
+                    isExtraTimeRunning = true,
+                    totalTimeConsumed = player.totalTimeConsumed + 1
                 )
             }
 
             else -> {
-                player.copy(timeLeft = 0, extraTimeLeft = 0)
+                player.copy(timeLeft = 0, extraTimeLeft = 0, totalTimeConsumed = player.totalTimeConsumed + 1)
             }
         }
 }

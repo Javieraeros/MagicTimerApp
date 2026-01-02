@@ -41,7 +41,8 @@ class CreateGameUC @Inject constructor(private val gameRepository: GameRepositor
                 hasTurn = false,
                 hasPriority = false,
                 extraTimeLeft = 2,
-                isExtraTimeRunning = false
+                isExtraTimeRunning = false,
+                totalTimeConsumed = 0
             )
         }
         return Game(System.currentTimeMillis(), players, false, false)

@@ -21,7 +21,8 @@ fun PlayerDTO.toModel(): Player = Player(
     hasTurn,
     hasPriority,
     extraTimeLeft,
-    isExtraTimeRunning
+    isExtraTimeRunning,
+    totalTimeConsumed
 )
 
 fun Game.toDTO(): GameWithPlayersDTO = GameWithPlayersDTO(
@@ -42,5 +43,6 @@ fun Player.toDTO(gameId: Long): PlayerDTO = PlayerDTO(
     hasPriority,
     extraTimeLeft,
     isExtraTimeRunning,
-    gameId
+    gameId,
+    totalTimeConsumed
 )
