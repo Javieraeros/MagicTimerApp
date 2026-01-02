@@ -14,5 +14,6 @@ data class PlayerDTO(
     val hasPriority: Boolean,
     val extraTimeLeft: Int,
     val isExtraTimeRunning: Boolean,
-    val gameId: Long
+    val gameId: Long,
+    val totalTimeConsumed: Seconds
 )

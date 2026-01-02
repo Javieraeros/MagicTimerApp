@@ -46,6 +46,7 @@ private const val firstStarId = "firstStar"
 private const val secondStarId = "secondStar"
 private const val turnButtonId = "turnButtonId"
 private const val priorityButtonId = "priorityButtonId"
+private const val totalTimeTextId = "totalTimeTextId"
 
 @Composable
 fun CounterCard(
@@ -119,18 +120,25 @@ fun CounterCard(
             Modifier.layoutId(turnButtonId),
             counterCardModel.hasTurn.not()
         )
+        Text(
+            counterCardModel.totalTimeConsumed,
+            fontSize = 12.sp,
+            color = Color.White,
+            modifier = Modifier.layoutId(totalTimeTextId)
+        )
     }
 }
 
 private fun getConstraintSet(): ConstraintSet {
     return ConstraintSet {
-        val (background, timeText, firstStar, secondStar, priorityButton, turnButton) = createRefsFor(
+        val (background, timeText, firstStar, secondStar, priorityButton, turnButton, totalTimeText) = createRefsFor(
             backgroundImageId,
             timeTextId,
             firstStarId,
             secondStarId,
             priorityButtonId,
-            turnButtonId
+            turnButtonId,
+            totalTimeTextId
         )
         constrain(background) {
             centerTo(parent)
@@ -157,6 +165,11 @@ private fun getConstraintSet(): ConstraintSet {
 
         constrain(turnButton){
             start.linkTo(priorityButton.end)
+            end.linkTo(parent.end)
+            bottom.linkTo(parent.bottom)
+        }
+
+        constrain(totalTimeText) {
             end.linkTo(parent.end)
             bottom.linkTo(parent.bottom)
         }
@@ -190,6 +203,7 @@ private fun CounterCardPreview() {
             hasTurn = false,
             hasPriority = true,
             stars = StarEnum.ONE,
+            totalTimeConsumed = "13:00"
         ), {
 
         }
