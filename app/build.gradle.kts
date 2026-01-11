@@ -11,6 +11,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.hilt)
     alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -22,7 +24,7 @@ android {
         minSdk = 26
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -116,6 +118,11 @@ dependencies {
     // Common
     implementation(libs.fjruiz.common.kotlin)
     implementation(libs.fjruiz.common.compose)
+
+    // Analytics
+    implementation(platform(libs.google.firebase))
+    implementation(libs.google.firebase.analytics)
+    implementation(libs.google.firebase.crashlytics)
 
     // Testing
     testImplementation(libs.junit)

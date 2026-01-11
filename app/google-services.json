@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1089587313360",
+    "project_id": "magic-timer-app",
+    "storage_bucket": "magic-timer-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089587313360:android:a4181d37b7b6be518d7cd5",
+        "android_client_info": {
+          "package_name": "es.fjruiz.magictimer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpSgdzznu1FvCQqCDZ7POlSiEa8n_loHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089587313360:android:a4181d37b7b6be518d7cd5",
+        "android_client_info": {
+          "package_name": "es.fjruiz.magictimer.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpSgdzznu1FvCQqCDZ7POlSiEa8n_loHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
