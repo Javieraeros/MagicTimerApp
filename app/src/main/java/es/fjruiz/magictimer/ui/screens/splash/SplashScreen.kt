@@ -13,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import es.fjruiz.magictimer.R
 
 @Composable
 fun SplashScreen(splashViewModel: SplashViewModel = hiltViewModel()) {
@@ -28,6 +30,6 @@ fun SplashScreen(splashViewModel: SplashViewModel = hiltViewModel()) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(Icons.Default.Build, contentDescription = "", modifier = Modifier.size(150.dp))
+        Image(painterResource(R.drawable.splash_background), contentDescription = "", Modifier.fillMaxSize())
     }
 }
