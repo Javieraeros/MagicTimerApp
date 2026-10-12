@@ -8,6 +8,7 @@
 
     <string name="settings">Ajustes</string>
     <string name="new_game">Nuevo juego</string>
+    <string name="continue_game">Continuar juego</string>
     <string name="save">Guardar</string>
     <string name="time_turn">Tiempo por turno(segundos)</string>
     <string name="extra_time">Tiempo extra(segundos)</string>
@@ -23,4 +24,7 @@
     <string name="success_saved">Guardado correctamente</string>
     <string name="alert_time">Alerta de tiempo</string>
     <string name="invalid_alert_time">El tiempo de alerta debe ser mayor que 0 y menor que el tiempo del turno</string>
+    <string name="continue_only">Continuar</string>
+    <string name="game_in_progress">Hay un juego en curso</string>
+    <string name="go_back">Volver atrás</string>
 </resources>

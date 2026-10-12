@@ -18,7 +18,7 @@ class SplashViewModel @Inject constructor(private val navigator: Navigator)
             SplashIntent.NavigateNext -> {
                 viewModelScope.launch {
                     delay(2000)
-                    navigator.navigatePopUp(Destination.Counter)
+                    navigator.navigatePopUp(Destination.Home)
                 }
             }
         }

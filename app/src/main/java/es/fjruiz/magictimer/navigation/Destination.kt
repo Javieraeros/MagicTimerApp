@@ -13,4 +13,7 @@ sealed class Destination {
 
     @Serializable
     object Settings: Destination()
+
+    @Serializable
+    object Home: Destination()
 }

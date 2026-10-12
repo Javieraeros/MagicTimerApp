@@ -9,6 +9,7 @@ sealed class CounterIntent() : BaseIntent {
     data object OnPauseClicked : CounterIntent()
     data object OnPauseDismissed: CounterIntent()
     data object OnSettingsClicked : CounterIntent()
+    data object OnGoBackClicked: CounterIntent()
 
     data class OnTakePriorityClicked(val playerId: String): CounterIntent()
     data class OnTakeTurnClicked(val playerId: String): CounterIntent()

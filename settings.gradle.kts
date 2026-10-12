@@ -14,7 +14,7 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven(url = "https://nexus.fjruiz.duckdns.org/nexus/content/repositories/releases")
+        maven(url = "https://nexus.fjruiz.es/nexus/content/repositories/releases")
         google()
         mavenCentral()
     }
