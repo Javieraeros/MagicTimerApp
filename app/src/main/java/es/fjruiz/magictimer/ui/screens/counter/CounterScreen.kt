@@ -95,6 +95,10 @@ fun PauseView(handleIntent: HandleIntent<CounterIntent>, modifier: Modifier = Mo
         Text(stringResource(R.string.resume), Modifier.clickable {
             handleIntent(CounterIntent.OnPauseDismissed)
         })
+    }, dismissButton = {
+        Text(stringResource(R.string.go_back), Modifier.clickable {
+            handleIntent(CounterIntent.OnGoBackClicked)
+        })
     }, title = {
         Text(stringResource(R.string.resume_body))
     }, modifier = modifier)

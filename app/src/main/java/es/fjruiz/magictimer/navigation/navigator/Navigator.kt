@@ -13,9 +13,7 @@ interface Navigator {
 }
 
 class NavigatorImpl @Inject constructor(): Navigator {
-    init {
-        println("Javi delete: init called ${hashCode()}")
-    }
+
     override val navigationChannel =  Channel<NavigationIntent>(
         capacity = Int.MAX_VALUE,
         onBufferOverflow = BufferOverflow.DROP_LATEST
@@ -30,7 +28,6 @@ class NavigatorImpl @Inject constructor(): Navigator {
     }
 
     override fun navigatePopUp(destination: Destination) {
-        println("Javi delete: navigatePopUp $destination")
         navigationChannel.trySend(NavigationIntent.NavigatePopUp(destination))
     }
 }

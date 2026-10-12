@@ -63,6 +63,7 @@ class CounterViewModel @Inject constructor(
             is CounterIntent.OnTakeTurnClicked -> handleOnTurnClicked(intent.playerId)
 
             is CounterIntent.OnSettingsClicked -> handleOnSettingsClicked()
+            is CounterIntent.OnGoBackClicked -> handleOnGoBack()
         }
     }
 
@@ -127,6 +128,16 @@ class CounterViewModel @Inject constructor(
                     game.copy(players = game.players.map { it.copy(hasPriority = it.playerId == playerId) })
                 updateGameUC(newGame)
             }
+        }
+    }
+
+    private fun handleOnGoBack() {
+        viewModelScope.launch {
+            timerJob?.cancel()
+            timerJob = null
+            collectJob?.cancel()
+            collectJob = null
+            navigator.navigateBack()
         }
     }
 
