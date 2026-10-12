@@ -6,9 +6,11 @@ import es.fjruiz.magictimer.ui.component.card.StarEnum
 import java.text.SimpleDateFormat
 import java.util.Date
 
-fun Player.toModel(): CounterCardModel = CounterCardModel(
+fun Player.toModel(totalTime: Long): CounterCardModel = CounterCardModel(
     playerId,
     timeLeft.toTime(),
+    timeLeft,
+    totalTime,
     image,
     hasTurn,
     hasPriority,

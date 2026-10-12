@@ -90,7 +90,7 @@ class CounterViewModel @Inject constructor(
                 } else {
                     val config = getConfigUC()
                     lastUpdateTime = System.currentTimeMillis()
-                    _uiState.value = Success(lastGame.players.map { it.toModel() }, shouldVibrate(config, lastGame.players))
+                    _uiState.value = Success(lastGame.players.map { it.toModel(config.time) }, shouldVibrate(config, lastGame.players))
                 }
             }
         }

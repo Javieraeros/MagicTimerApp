@@ -1,16 +1,17 @@
 package es.fjruiz.magictimer.ui.component.card
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -54,16 +55,23 @@ fun CounterCard(
     handleIntent: HandleIntent<CounterIntent>,
     modifier: Modifier = Modifier
 ) {
-    val border = if (counterCardModel.hasPriority) {
-        BorderStroke(5.dp, gold)
-    } else {
-        BorderStroke(5.dp, Color.Transparent)
-    }
+    val isActive = counterCardModel.hasPriority
+    val progress by animateFloatAsState(
+        targetValue = if (isActive) counterCardModel.timeLeftFraction else 1f,
+        animationSpec = tween(durationMillis = 1000, easing = LinearEasing),
+        label = "timeLeftBorder"
+    )
 
     ConstraintLayout(
         constraintSet = getConstraintSet(),
         modifier
-            .border(border, RoundedCornerShape(12.dp))
+            .depletingBorder(
+                progress = progress,
+                color = if (isActive) gold else Color.Transparent,
+                trackColor = if (isActive) transparentGray else Color.Transparent,
+                cornerRadius = 12.dp,
+                strokeWidth = 5.dp
+            )
             .padding(4.dp)
     ) {
 
@@ -199,6 +207,8 @@ private fun CounterCardPreview() {
     CounterCard(
         CounterCardModel(
             time = "2:00",
+            timeLeft = 120,
+            totalTime = 300,
             image = jace,
             hasTurn = false,
             hasPriority = true,
